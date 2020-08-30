@@ -12,7 +12,7 @@ function validate(evt){
     evt.preventDefault();
     var user= document.getElementById("user");
     var password= document.getElementById("password");
-
+    
     if(user.value.trim() == "") {
         user_none.innerHTML=`<span>Se necesita tu usuario</span>`;
         user.focus();
@@ -27,6 +27,7 @@ function validate(evt){
         password_none.innerHTML=``;
         var username=user.value
         sessionStorage.setItem("Nombre", username);
+       
         
         window.location.href="mainpage.html";
         
@@ -36,13 +37,16 @@ function validate(evt){
 
 
 //Función que escribe el usuario en la barra de navegación
-//Se ejecuta una vez cargada la pagina con los datos almacenados en sessionStorage
+//Se ejecuta una vez cargada la pagina con los datos almacenados en sessionStorage (nombre y imagen perfil)
 
 function showUserName(){
     var bienvenida="";
     var username=sessionStorage.getItem("Nombre");
-    bienvenida=`<h6 class="mb-1" style="color:#FFFFFF;">Bienvenido/a: `+ `<b>`+username+`</b></h6>`
-    document.getElementById("user-welcome").innerHTML=bienvenida;
+    var userImage=sessionStorage.getItem("userImage");
+    bienvenida=`<h7 class="" style="color:#FFFFFF;">Bienvenid@:`+`  `+`<b>`+username+`</b></h7>`
+    bienvenida_img=`<img class="rounded-circle " src="`+userImage+`" width="35px" alt="" onerror="this.src='img/avatar.jpg';" ></img>`
+    document.getElementById("userName").innerHTML=bienvenida;
+    document.getElementById("user-image").innerHTML=bienvenida_img;
     
 }
 

@@ -25,8 +25,19 @@
       <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
       <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
       <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
-      <div class="py-2 d-none d-md-inline-block" id="user-welcome"></div>
-      <button type="button" class="btn btn-danger" onclick="signOut();">Salir</button>
+      <a class="py-2 d-none d-md-inline-block" href="#" id="userName"></a>
+      <div class="btn-group">
+        <button type="button" class="btn btn-danger" id="user-image"></button>
+        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="my-profile.html">Perfil</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#" onclick="signOut();">Salir</a>
+        </div>
+      </div>
     </div>
   </nav>
   <main role="main">
