@@ -16,6 +16,8 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link href="css/score.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -42,15 +44,74 @@
     </div>
 
   </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 3 (Fecha de entrega: 13/09/2020) y Entrega 4 (Fecha de entrega:
-        20/09/2020).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+  <div class="container p-4" id="product-info"></div>
+  <div class="container p-4 d-flex justify-content-center" id="valoracion-general">
+
+
+  </div>
+
+  <div class="container p-4" id="extra-products">
+    <h3><b>Productos relacionados</b> </h3>
+    <hr>
+    <div class="row container-flex" id="related-products">
+
     </div>
   </div>
+  <div class="container p-4" id="">
+    <h3><b>Comentarios de nuestros clientes</b> </h3>
+    <hr>
+  </div>
+  <div class="container p-4" id="comments">
+
+
+  </div>
+
+  <div class="container" id="comment-form">
+    <h3><b>Dejanos tu opinión!!!</b> </h3>
+    <hr>
+
+    <div class="col-6">
+      <p class="justify-content-center">Si compraste uno de nuestros productos, nos gustaría que nos compartas tu opinión.</p>
+      <div class="form-group row">
+        <label for="username" class="col-sm-2 col-form-label">Usuario</label>
+        <div class="col"><input class="form-control" type="text" id="username" placeholder="Usuario" required></div><br>
+      </div>
+      <div class="form-group row">
+        <label for="comment" class="col-sm-2 col-form-label">Tu comentario</label>
+        <div class="col"><textarea class="form-control" type="text" id="comment" placeholder="Tu comentario aquí"
+            rows="5"></textarea></div><br>
+      </div>
+      <div class="form-group row "><label for="" class="col-sm-2 col-form-label">Valoración:</label>
+        <div class="score justify-content-start">
+          <input id="radio1" type="radio" name="estrellas" value="5" onclick="getScore();">
+          <!--
+        -->
+          <label for="radio1"><i class="fa fa-star-o"></i></label>
+          <input id="radio2" type="radio" name="estrellas" value="4" onclick="getScore();">
+          <!--
+        -->
+          <label for="radio2"><i class="fa fa-star-o"></i></label>
+          <input id="radio3" type="radio" name="estrellas" value="3" onclick="getScore();">
+          <!--
+        -->
+          <label for="radio3"><i class="fa fa-star-o"></i></label>
+          <input id="radio4" type="radio" name="estrellas" value="2" onclick="getScore();">
+          <!--
+        -->
+          <label for="radio4"><i class="fa fa-star-o"></i></label>
+          <input id="radio5" type="radio" name="estrellas" value="1" onclick="getScore();">
+          <!--
+        -->
+          <label for="radio5"><i class="fa fa-star-o"></i></label><br>
+
+        </div>
+      </div><br>
+      <input class="btn btn-danger" type="button" value="Comentar" onclick="addComment();">
+
+
+    </div>
+  </div>
+
   <footer class="text-muted">
     <div class="container">
       <p class="float-right">
@@ -77,6 +138,7 @@
   <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
   <script>
     showUserName();
+
   </script>
 </body>
 
