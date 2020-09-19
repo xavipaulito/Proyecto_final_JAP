@@ -12,7 +12,15 @@ function showProduct(resultObj) {
         
       <div class="row">
         <div class="col-6">
-            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+            <div id="carouselIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+           
+              <ol class="carousel-indicators">
+                <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselIndicators" data-slide-to="2"></li>
+                <li data-target="#carouselIndicators" data-slide-to="3"></li>
+                <li data-target="#carouselIndicators" data-slide-to="4"></li>
+              </ol>
               <div class="carousel-inner">
                 <div class="carousel-item active"><img src="`+ product.images[0] + `" class="d-block w-100" alt="..."></div>
                 <div class="carousel-item"><img src="`+ product.images[1] + `" class="d-block w-100" alt="..."></div>
@@ -72,14 +80,15 @@ function showRelatedProd(array) {
 
     //accedo al array de productos y accedo a las posiciones obtenidas
     htmlContentToAppend += `
-    <div class="col-3">
-      <h3 class="text-center">`+ array[index].name + `</h3>
-          <a href="product-info.html">
-          <img src="` + array[index].imgSrc + `" alt="" class="img-thumbnail"></a>
-          <p class="text-justify">`+ array[index].description + `</p>
-          <a href="product-info.html">Ver</a>
-
-    </div>
+   
+    <div class="card text-center" style="width: 18rem;">
+      <img class="card-img-top" src="` + array[index].imgSrc + `" alt="Card image cap">
+      <div class="card-body">
+      <h5 class="card-title">`+ array[index].name + `</h5>
+      <p class="card-text">`+ array[index].description + `</p>
+      <a href="#" class="btn btn-danger">Ver</a>
+      </div>
+    </div><br>
     `
     //muestro el contenido obtenido
     document.getElementById("related-products").innerHTML = htmlContentToAppend;
@@ -243,8 +252,8 @@ function starAverage(array) {
   var sumatoria = array.reduce(function (acumulador, siguienteValor) {
     return acumulador + siguienteValor;
   }, 0);
-  //calculo el promedio y lo redondeo al entero más cercano
-  promedio = Math.round(sumatoria / array.length);
+  //calculo el promedio y lo redondeo al .5 más cercano
+  promedio = Math.round((sumatoria / array.length)*2)/2;
 
   //muestro el promedio con estrellas
   let drawStars = showStar(promedio);

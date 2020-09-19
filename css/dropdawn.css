@@ -1,0 +1,20 @@
+
+    .dropdown-menu {
+      background-color:#343a40 !important;
+    
+    }
+    .dropdown-item:hover {
+      background-color:#dc3545!important;
+    
+    }
+    .fas {
+      color:white;
+    }
+    .dropdown:hover>.dropdown-menu {
+      display: block;
+    }
+    
+    .dropdown>.dropdown-toggle:active {
+      /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
