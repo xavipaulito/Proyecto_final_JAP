@@ -58,7 +58,8 @@
           </button>
           <div class="dropdown-menu  dropdown-menu-right " aria-labelledby="user-image">
             <a class="dropdown-item text-white" href="my-profile.html"> <i class="fas fa-user p-2"></i>Mi Perfil</a>
-            <a class="dropdown-item text-white" href="cart.html"><i class="fas fa-shopping-cart p-2"></i>Mi carrito</a>
+            <a class="dropdown-item text-white" href="cart.html"><i class="fas fa-shopping-cart p-2"></i>Mi carrito<span
+                class="badge badge-danger py-1" id="badge_count"></span></a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item text-white" href="#" onclick="signOut();"><i
                 class="fas fa-sign-out-alt p-2"></i>Salir</a>
@@ -70,15 +71,129 @@
     </div>
 
   </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 5 (Fecha de entrega: 11/10/2020) y Entrega 6 (Fecha de entrega:
-        25/10/2020).</p>
+  <div class="text-center p-4">
+    <h2>Mi carrito</h2>
+    <p class="lead">Verás aquí todos tus productos agregados al carrito</p>
+  </div>
+  <div class="container p-2">
+    <div class="row">
+      <div class="col-8">
+
+        <div class="card shopping-cart">
+          <div class="card-header bg-dark text-light">
+            <div class="row">
+              <div class="col-8"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                Carrito de compras
+                <span
+                    class="badge badge-danger py-1 float-right" id="badge_count1"></span><p class="float-right"> Items: </p></div>
+              <div class="col-4"><a href="products.html" class="btn btn-outline-info btn-sm float-right">Continuar comprando</a></div>
+              <div class="clearfix"></div></div>
+
+          </div>
+
+        </div>
+        <div class="row text-center py-2">
+
+
+          <div class="col-4"><b>Producto</b></div>
+          <div class="col-2"><b>Costo unitario</b></div>
+          <div class="col-2"><b>Cantidad</b></div>
+          <div class="col-1"></div>
+          <div class="col-3"><b>Total</b></div>
+
+
+
+        </div>
+        <hr>
+        <div class="card-body" id="product-cart">
+         
+
+
+        </div>
+        <button class="btn btn-danger float-right" onclick="delete_Cart();"><i class="fa fa-trash"
+            aria-hidden="true"></i> Vaciar carrito</button>
+      </div><br>
+
+
+      <div class="col-4">
+
+        <div class="card shopping-cart">
+          <div class="card-header bg-dark text-light">
+
+            Resumen de tu pedido
+           
+
+          </div>
+          <div class="card-body col-12" id="product-cart">
+
+            <div class="row  d-flex flex-row justify-content-between" id="subtotal">
+              <h5>Subtotal: </h5>
+              <h5><span class="text-right" id="subtotal_value"></span></h5>
+            </div>
+            <div class="row d-flex flex-row justify-content-between" id="envio">
+              <h5>Envío<sub id="envio_type"></sub>: </h5>
+              <h5><span class="float-right" id="envio_value"></span></h5>
+            </div>
+            <hr>
+            <div class="row  d-flex flex-row justify-content-between" id="total">
+              <h4><b>Total:</b> </h4>
+              <h3><span class="badge badge-pill badge-success" id="total_value"></span></h3>
+            </div><br>
+            <div class="col text-center"><button class="btn btn-danger ">Finalizar compra</button></div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="container p-2" id="envio">
+      <h3><b>Envío</b> </h3>
       <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+
+      <div class="col p-2">
+        <p class="">Indica tu dirección y método de envío</p>
+        <h6><b>Datos de envío</b> </h6>
+      <hr>
+        <div class="form-group row">
+          <label for="dirección" class="col-sm-2 col-form-label">Dirección</label>
+          <div class="col"><input class="form-control" type="" id="direccion" placeholder="calle, número, esquina."
+              required>
+          </div><br>
+          <label for="country" class="col-sm-2 col-form-label">País</label>
+          <div class="col"><select class="custom-select" data-live-search="true" name="country" id="country"
+              placeholder="Selecciona tu país"></select></div>
+
+        </div>
+        <h6><b>Método de envío</b> </h6>
+      <hr>
+        <div class="custom-control custom-radio"><input type="radio" value="0.15" id="premium" name="envio"
+            class="custom-control-input" onclick="totalValue();"><label class="custom-control-label"
+            for="premium">Premium
+            (2-5 días) - Costo del 15% sobre el subtotal.</label></div>
+        <br>
+        <div class="custom-control custom-radio"><input type="radio" value="0.07" id="express" name="envio"
+            class="custom-control-input" onclick="totalValue();"><label for="express"
+            class="custom-control-label">Express
+            (5-8 días) - Costo del 7% sobre el subtotal.</label></div> <br>
+        <div class="custom-control custom-radio"><input type="radio" value="0.05" id="estandar" name="envio"
+            class="custom-control-input" onclick="totalValue();" checked><label for="estandar"
+            class="custom-control-label">Estandard (12 a 15 días) - Costo del 5% sobre el subtotal.</label> 
+        </div><br>
+      </div>
+    </div>
+    <div class="container p-2 justify-content-center" id="metodo_pago">
+      <h3><b>Forma de pago</b> </h3>
+      <hr>
+      <div class="row">
+        <div class="col-3"><button class="btn btn-danger">Tarjeta de crédito</button></div>
+        
+        <div class="col-3"><button class="btn btn-danger">Transferencia bancaria</button></div>
+      </div>
     </div>
   </div>
+
+
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>
