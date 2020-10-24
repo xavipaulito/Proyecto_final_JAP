@@ -17,7 +17,11 @@
   <!-- Icons CSS -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
     integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-
+  <!-- Boostrap datepicker -->
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+<!-- Sweet alert -->
+  <link rel="stylesheet" href="css/sweetalert2.min.css">
+  <script src="js/sweetalert2.all.min.js"></script>
 
   <style>
     .bd-placeholder-img {
@@ -84,10 +88,13 @@
             <div class="row">
               <div class="col-8"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 Carrito de compras
-                <span
-                    class="badge badge-danger py-1 float-right" id="badge_count1"></span><p class="float-right"> Items: </p></div>
-              <div class="col-4"><a href="products.html" class="btn btn-outline-info btn-sm float-right">Continuar comprando</a></div>
-              <div class="clearfix"></div></div>
+                <span class="badge badge-danger py-1 float-right" id="badge_count1"></span>
+                <p class="float-right"> Items: </p>
+              </div>
+              <div class="col-4"><a href="products.html" class="btn btn-outline-info btn-sm float-right">Continuar
+                  comprando</a></div>
+              <div class="clearfix"></div>
+            </div>
 
           </div>
 
@@ -106,7 +113,7 @@
         </div>
         <hr>
         <div class="card-body" id="product-cart">
-         
+
 
 
         </div>
@@ -121,7 +128,7 @@
           <div class="card-header bg-dark text-light">
 
             Resumen de tu pedido
-           
+
 
           </div>
           <div class="card-body col-12" id="product-cart">
@@ -139,7 +146,8 @@
               <h4><b>Total:</b> </h4>
               <h3><span class="badge badge-pill badge-success" id="total_value"></span></h3>
             </div><br>
-            <div class="col text-center"><button class="btn btn-danger ">Finalizar compra</button></div>
+            <div class="col text-center"><button class="btn btn-danger btn-lg " onclick="buy_confirm();">Finalizar
+                compra</button></div>
 
           </div>
 
@@ -154,46 +162,224 @@
       <div class="col p-2">
         <p class="">Indica tu dirección y método de envío</p>
         <h6><b>Datos de envío</b> </h6>
-      <hr>
-        <div class="form-group row">
-          <label for="dirección" class="col-sm-2 col-form-label">Dirección</label>
-          <div class="col"><input class="form-control" type="" id="direccion" placeholder="calle, número, esquina."
-              required>
-          </div><br>
-          <label for="country" class="col-sm-2 col-form-label">País</label>
-          <div class="col"><select class="custom-select" data-live-search="true" name="country" id="country"
-              placeholder="Selecciona tu país"></select></div>
+        <hr>
+        <form action="" class="needs-validation" novalidate>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="dirección" class="col-sm-2 col-form-label">Dirección</label>
+              <input class="form-control needs-validation" type="" id="direccion" placeholder="Calle" name="datos_envio"
+                required>
+              <div class="valid-feedback">OK!!!</div>
+              <div class="invalid-feedback">Ingrese una dirección</div>
 
-        </div>
+            </div>
+            <div class="form-group col-md-2"><label for="numero" class="col-sm-2 col-form-label">Numero</label>
+              <input class="form-control needs-validation" type="" id="numero" placeholder="Número" name="datos_envio"
+                required>
+              <div class="valid-feedback">OK!!!</div>
+              <div class="invalid-feedback">Ingrese un número de puerta</div>
+            </div>
+
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="esquina" class="col-sm-2 col-form-label">Esquina</label>
+              <input class="form-control needs-validation" type="" id="esquina" placeholder="Esquina" name="datos_envio"
+                required>
+              <div class="valid-feedback">OK!!!</div>
+              <div class="invalid-feedback">Ingrese una esquina</div>
+            </div>
+            <div class="form-group col-md-2"><label for="country" class="col-sm-2 col-form-label">País</label>
+              <select class="custom-select " data-live-search="true" name="country" id="country">
+
+              </select>
+              <div class="valid-feedback">OK!!!</div>
+              <div class="invalid-feedback">Seleccione un país</div>
+            </div>
+          </div>
+
+        </form>
+
+
+      </div>
+      <div class="container p-2" id="metodo_envio">
         <h6><b>Método de envío</b> </h6>
-      <hr>
+        <hr>
+
         <div class="custom-control custom-radio"><input type="radio" value="0.15" id="premium" name="envio"
-            class="custom-control-input" onclick="totalValue();"><label class="custom-control-label"
-            for="premium">Premium
-            (2-5 días) - Costo del 15% sobre el subtotal.</label></div>
+            class="custom-control-input" onclick="totalValue(); removeValidation(this.name);"><label
+            class="custom-control-label" for="premium">Premium
+            (2-5 días) - Costo del 15% sobre el subtotal.</label>
+          <div class="invalid-feedback">Seleccione un método de envío</div>
+          <div class="valid-feedback">OK!!!</div>
+        </div>
         <br>
         <div class="custom-control custom-radio"><input type="radio" value="0.07" id="express" name="envio"
-            class="custom-control-input" onclick="totalValue();"><label for="express"
+            class="custom-control-input" onclick="totalValue();removeValidation(this.name);"><label for="express"
             class="custom-control-label">Express
-            (5-8 días) - Costo del 7% sobre el subtotal.</label></div> <br>
+            (5-8 días) - Costo del 7% sobre el subtotal.</label>
+          <div class="invalid-feedback">Seleccione un método de envío</div>
+          <div class="valid-feedback">OK!!!</div>
+        </div> <br>
         <div class="custom-control custom-radio"><input type="radio" value="0.05" id="estandar" name="envio"
-            class="custom-control-input" onclick="totalValue();" checked><label for="estandar"
-            class="custom-control-label">Estandard (12 a 15 días) - Costo del 5% sobre el subtotal.</label> 
+            class="custom-control-input" onclick="totalValue();removeValidation(this.name);"><label for="estandar"
+            class="custom-control-label">Estandard (12 a 15 días) - Costo del 5% sobre el subtotal.</label>
+          <div class="invalid-feedback">Seleccione un método de envío</div>
+          <div class="valid-feedback">OK!!!</div>
         </div><br>
       </div>
-    </div>
-    <div class="container p-2 justify-content-center" id="metodo_pago">
-      <h3><b>Forma de pago</b> </h3>
-      <hr>
-      <div class="row">
-        <div class="col-3"><button class="btn btn-danger">Tarjeta de crédito</button></div>
-        
-        <div class="col-3"><button class="btn btn-danger">Transferencia bancaria</button></div>
-      </div>
+
     </div>
   </div>
+  <div class="container p-2" id="metodo_pago">
+    <h3><b>Forma de pago</b> </h3>
+    <hr>
+    <div class="row" id="pago_alert"></div>
+   
+
+      <!-- Button forma de pago modal -->
+      <div class="col-p2"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#pay_form">
+        Selecciona un método de pago
+      </button></div>
+
+      <!-- Modal forma de pago-->
+      <div class="modal fade" id="pay_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Forma de pago</h5>
+              <button type="button" name="" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <div class="payment">
+                <div id="accordion">
+                  <h5 class="mb-0">
+                    <button class="btn btn-danger btn-lg btn-block py-2 " data-toggle="collapse" data-target="#credito"
+                      aria-expanded="true" aria-controls="credito">
+                      Tarjeta de crédito
+                    </button><br>
+                  </h5>
+                  <div id="credito" class="collapse container py-2" aria-labelledby="headingOne"
+                    data-parent="#accordion">
+                    <form class="needs-validation" novalidate>
+                      <div class="form-group owner">
+                        <label for="owner">Propietario</label>
+                        <input type="text" class="form-control needs-validation" name="credit-card" id="owner" required placeholder="Nombre Apellido">
+                        <div class="valid-feedback">OK!!!</div>
+                        <div class="invalid-feedback">Ingrese titular de tarjeta</div>
+                      </div>
+
+                      <div class="form-group" id="card-number-field">
+                        <label for="cardNumber">Número</label>
+                        <input type="text" class="form-control needs-validation" name="credit-card" id="cardNumber" placeholder="xxxx-xxxx-xxxx-xxxx"
+                          required>
+                        <div class="valid-feedback">OK!!!</div>
+                        <div class="invalid-feedback">Ingrese el número de tarjeta</div>
+                      </div>
+                      <form class="form-inline">
+                        <div class="form-group CVV">
+                          <label for="cvv">CVV</label>
+                          <input type="text" class="form-control needs-validation" name="credit-card" id="cvv" required placeholder="xxx">
+                          <div class="valid-feedback">OK!!!</div>
+                          <div class="invalid-feedback">Ingrese el número que se encuentra en la parte posterior de su
+                            tarjeta</div>
+                        </div>
+                        <div class="form-group" id="expiration-date " inline="true">
+                          <label for="date">Fecha de vencimiento</label>
+                          <div class="input-group"><input type="text" placeholder="MM/YYYY"
+                              class="form-control datepicker needs-validation" name="credit-card" id="date" required>
+
+                            <span class="input-group-addon btn btn-danger "><i
+                                class="fa fa-calendar input-prefix datepicker"></i>
+                            </span>
+                            <div class="valid-feedback">OK!!!</div>
+                            <div class="invalid-feedback">Ingrese una fecha</div>
+                          </div>
+
+                        </div>
+                      </form>
+
+                      <div class="form-group" id="credit_cards">
+                        <img src="/img/visa.jpg" id="visa">
+                        <img src="/img/mastercard.jpg" id="mastercard">
+                        <img src="/img/amex.jpg" id="amex">
+                        <img src="/img/cabal.png" id="cabal">
+                        <img src="/img/jcb.jpg" id="jcb">
+                      </div>
+
+                    </form>
+                    <div class="container text-center"><button type="button" id="credit_confirm"
+                        class="btn btn-success">Confirmar</button></div>
+                  </div>
+                  <h5 class="mb-0">
+                    <button class="btn btn-danger btn-lg btn-block" data-toggle="collapse" data-target="#bank"
+                      aria-expanded="true" aria-controls="bank">
+                      Transferencia bancaria
+                    </button>
+                  </h5>
+                  <div id="bank" class="collapse container py-2" aria-labelledby="headingOne" data-parent="#accordion">
+                    <form action="" class="bank_transfer needs-validation">
+                      <div class="form-group">
+                        <label class="" for="banks">Banco</label><select class="custom-select "
+                          data-live-search="true" name="" id="banks">
+                          <option value="0">Elija su banco</option>
+                          <option value="brou">BROU</option>
+                          <option value="itau">Itaú</option>
+                          <option value="santander">Santander</option>
+                          <option value="scotia">ScotiaBank</option>
+                          <option value="hsbc">HSBC</option>
+                        </select>
+
+                        <div class="valid-feedback">OK!!!</div>
+                        <div class="invalid-feedback">Seleccione un banco</div>
+                      </div>
+                      <div id="" class="form-group" name="choose_bank"><label for="cuenta">Número de
+                          cuenta</label><input type="text" id="cuenta" class="form-control" name="bank_number" required>
+                        <div class="valid-feedback">OK!!!</div>
+                        <div class="invalid-feedback">Ingrese un número de cuenta</div>
+                      </div>
+                    </form>
+                    <div class="container text-center"><button type="button" class="btn btn-success"
+                        id="bank_confirm">Confirmar</button></div>
+                  </div>
+
+                </div>
+
+              </div>
 
 
+
+
+
+
+            </div>
+
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </div>
+
+  <footer class="text-muted">
+    <div class="container">
+      <p class="float-right">
+        <a href="#">Volver arriba</a>
+      </p>
+      <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
+      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+    </div>
+  </footer>
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>
@@ -205,8 +391,14 @@
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/dropzone.js"></script>
+
+  
+  
+  
   <script src="js/init.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/validation.js"></script>
   <script src="js/login.js"></script>
   <script src="js/login_google.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>

@@ -1,9 +1,9 @@
 var products = [];
 var items = 0;
-var subtotal = undefined;
+var subtotal = 0;
 var cantProducts = 0;
-var total = undefined;
-var envio_cost = undefined;
+var total = 0;
+var envio_cost = 0;
 
 //funcion que toma el array con productos precargados y los muestra.
 function showCart(products) {
@@ -43,7 +43,7 @@ function showCart(products) {
         </div>
         <div class="col-1">
         
-        <button type="button" class="btn btn-outline-danger btn-xs" onclick="delete_Item(\'' + names + '\');"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-outline-danger btn-xs delete" data-name="${names}"><i class="fa fa-trash" aria-hidden="true"></i></button>
 
         </div>
 
@@ -168,14 +168,40 @@ function delete_Cart(products) {
     showCart(products);
 
 }
-//funcion que elimina el item seleccionado del carrito
-/*function delete_Item(todelete){
-    let indice = products.findIndex(el=> el.name ==todelete);
-    alert(indice);
-    products.splice(indice,1);
-    
 
-}*/
+/* Borrado de productos */
+//obtengo todos los elementos HTML del div carrito
+var cart = document.getElementById("product-cart")
+//evaluo cuando se hace click en alguno de ellos
+cart.onclick = function (e) {
+    //si el elemento click contiene la clase "delete" 
+    //corresponde al boton de eliminar item
+    if (e.target && e.target.classList.contains("delete")) {
+        //obtengo el data-name guardado en ese boton (corresponde al nombre del item)
+        const todelete = e.target.dataset.name;
+        //se lo paso a la funcion delete_Item
+        delete_Item(todelete);
+    }
+}
+
+
+
+
+//funcion que elimina el item seleccionado del carrito
+function delete_Item(todelete) {
+    //obtengo el indice del item en el array de productos
+    //buscandolo en base el atributo name de cada objeto
+
+    let indice = products.findIndex(el => el.name === todelete);
+    //elimino el objeto del indice obtenido/
+
+
+    products.splice(indice, 1);
+    //muestro nuevamente el array
+    showCart(products);
+
+
+}
 
 //Funcion que actualiza el numero de items a medida que el usuario cambia la cantidad
 //se guardan el sessionStorage para mostrarlos el las demás páginas
@@ -227,7 +253,7 @@ function showItemsCount() {
 
 //funcion que lee un JSON con lista de paises y la muestra como desplegable
 function choose_country(countries) {
-    htmlContentToAppend = "";
+    htmlContentToAppend = `<option selected value="0">Elige un país</option>`;
     for (country of countries) {
         htmlContentToAppend += `<option value="` + country.name + `">` + country.name + `</option>`;
     }
@@ -235,8 +261,12 @@ function choose_country(countries) {
     document.getElementById("country").innerHTML = htmlContentToAppend;
 }
 
-
-
+$(".datepicker").datepicker( {
+    format: "mm/yyyy",
+    startView: "year", 
+    minViewMode: "months"
+});
+ 
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
