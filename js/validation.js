@@ -38,8 +38,9 @@ function buy_confirm() {
         return false;
         
     //chequeo si los campos de datos de envío estpan vacios 
-    } if (!envio_datos && !country_valid) {
+    } if (envio_datos==false || country_valid==false) {
         window.location.href = '#envio';
+        return false;
     }
     //chequeo si al menos se ha completado los campos de un método de pago
     if (bank_ok == false && card_ok == false) {
@@ -82,7 +83,9 @@ function bank_Ok() {
 
     //si los campos estan llenos, cambio la variable bank_ok a true
     if (b_select && b_number) {
-
+         //deshabilito los campos del metodo credito
+        disablePayMethod(credit_card);
+    
         bank_ok = true;
         Swal.fire({
             title: '<strong>Datos guardados </strong>',
@@ -107,7 +110,8 @@ function credit_Ok() {
     credit_inputs = formCheck(credit_card);
     //si no están vacíos cambio card_ok a true
     if (credit_inputs) {
-        
+        //deshabilito los campos del metodo banco
+        disablePayMethod(bank_number);
         card_ok = true;
         Swal.fire({
             title: '<strong>Datos guardados </strong>',
@@ -138,6 +142,7 @@ function formCheck(input_name) {
             form.classList.add("is-invalid");
             form.classList.remove("is-valid");
             campo_vacio = false;
+            
 
         } else {
 
@@ -190,15 +195,15 @@ function removeValidation(radio_name) {
 //funcion que valida los elementos select, usando como
 //parámetro el id del select que quiero chequear
 function selectValidation(select_id) {
-    country = document.getElementById(select_id);
+    selec_field = document.getElementById(select_id);
 
-    if (country.value == 0) {
-        country.classList.add("is-invalid");
-        country.classList.remove("is-valid");
+    if (selec_field.value == 0) {
+        selec_field.classList.add("is-invalid");
+        selec_field.classList.remove("is-valid");
         return false;
     } else {
-        country.classList.add("is-valid");
-        country.classList.remove("is-invalid");
+        selec_field.classList.add("is-valid");
+        selec_field.classList.remove("is-invalid");
 
     } return true;
 }
@@ -216,19 +221,19 @@ function disablePayMethod(pay) {
 //escuho el evento click del boton confirmar del método pago credito
 document.getElementById("credit_confirm").addEventListener("click", function (e) {
     e.preventDefault();
-    //deshabilito los campos del metodo banco
-    disablePayMethod(bank_number)
     //compruebo todos los campos
     credit_Ok();
+    
+    
 
 });
 //escuho el evento click del boton confirmar del método pago banco
 document.getElementById("bank_confirm").addEventListener("click", function (e) {
     e.preventDefault();
-    //deshabilito los campos del metodo credito
-    disablePayMethod(credit_card)
     //compruebo todos los campos
     bank_Ok();
+    
+   
 
 
 });
