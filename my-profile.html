@@ -16,7 +16,11 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <!-- Icons CSS -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-  integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <!-- Sweet alert -->
+  <link rel="stylesheet" href="css/sweetalert2.min.css">
+  <script src="js/sweetalert2.all.min.js"></script>
+
 
   <style>
     .bd-placeholder-img {
@@ -33,6 +37,10 @@
         font-size: 3.5rem;
       }
     }
+
+    .custom-file-input~.custom-file-label::after {
+      content: "Elegir" !important;
+    }
   </style>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
@@ -41,73 +49,376 @@
 </head>
 
 <body>
-  <nav class="site-header sticky-top py-1 bg-dark">
-    <div class="container d-flex flex-column flex-md-row justify-content-between">
-      <a class="py-2 d-none d-md-inline-block" href="mainpage.html">Inicio</a>
-      <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
-      <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
-      <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
-      <div>
-        <a class="py-2 d-none d-md-inline-block" href="#" id="userName">
-          <h6><b>Bienvenid@: </b></h6>
-        </a>
-        <div class="btn-group dropdown">
-          <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false" id="user-image"></button>
-          <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="user-image">
-            <a class="dropdown-item text-white" href="my-profile.html"> <i class="fas fa-user p-2"></i>Mi Perfil</a>
-            <a class="dropdown-item text-white" href="cart.html"><i class="fas fa-shopping-cart p-2"></i>Mi carrito<span
-              class="badge badge-danger py-1" id="badge_count"></span></a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item text-white" href="#" onclick="signOut();"><i
-                class="fas fa-sign-out-alt p-2"></i>Salir</a>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">e-Mercado</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item  px-5">
+          <a class="nav-link" href="mainpage.html"><b>Inicio <span class="sr-only">(current)</span></b> </a>
+        </li>
+        <li class="nav-item px-5">
+          <a class="nav-link" href="categories.html"><b>Categorías</b> </a>
+        </li>
+        <li class="nav-item px-5">
+          <a class="nav-link" href="products.html"><b>Productos</b> </a>
+        </li>
+        <li class="nav-item px-5">
+          <a class="nav-link" href="sell.html"><b>Vender</b> </a>
+        </li>
+        <li class="nav-item dropdown active px-5">
+          <div class=" btn-group dropdown">
+            <button type="button" class="btn btn-danger  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false" id="user-image"></button>
+            <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="user-image">
+              <a class="dropdown-item text-white" href="my-profile.html"> <i class="fas fa-user p-2"></i>Mi Perfil</a>
+              <a class="dropdown-item text-white" href="cart.html"><i class="fas fa-shopping-cart p-2"></i>Mi
+                carrito<span class="badge badge-danger py-1" id="badge_count"></span></a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item text-white" href="#" onclick="signOut();"><i
+                  class="fas fa-sign-out-alt p-2"></i>Salir</a>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
 
+        </li>
+      </ul>
+    </div>
   </nav>
   <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 7 (Fecha de entrega: 8/11/202020) -> Punto 1 y 2.</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
-    </div>
-  </div>
-  <footer class="text-muted bg-light">
-    <div class="container">
-      <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
-      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
-    </div>
-  </footer>
-  <div class="alert fade alert-success" role="alert" id="alertResult">
-    <span id="resultSpan"></span>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div id="spinner-wrapper">
-    <div class="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/dropzone.js"></script>
-  <script src="js/init.js"></script>
-  <script src="js/cart.js"></script>
-  <script src="js/my-profile.js"></script>
-  <script srC="js/login.js"></script>
-  <script src="js/login_google.js"></script>
-  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-  <script>
-    showUserName();
-    showItemsCount();
-  </script>
+    <h2>Mi Perfil</h2>
+    <p class="lead">Aquí podrás ver y editar tus datos personales</p>
+
+    <div class="main-body">
+
+      <div class="row gutters-sm">
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex flex-column align-items-center text-center">
+                <img src="" alt="Admin" class="rounded-circle" width="150" id="profile_img"><button type="button"
+                  class="btn btn-light py-0" data-toggle="modal" data-target="#user_img"><i
+                    class="fa fa-edit"></i></button>
+                <div class="mt-3">
+                  <h4 id="username_card"></h4>
+                  <p class="text-secondary mb-1" id="mail_card"></p>
+                  <p class="text-muted font-size-sm" id="localization_card"></p>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+        <div class="col-md-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Nombre completo</h6>
+                </div>
+                <div class="col-sm-7 text-secondary" id="panel_username">
+
+                </div>
+                <div class="col-sm-2 "><button type="button" class="btn btn-light py-0" data-toggle="modal"
+                    data-target="#user_names"><i class="fa fa-edit"></i></button></div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Edad</h6>
+                </div>
+                <div class="col-sm-7 text-secondary" id="panel_edad">
+
+                </div>
+                <div class="col-sm-2 "><button type="button" class="btn btn-light py-0" data-toggle="modal"
+                    data-target="#user_edad"><i class="fa fa-edit"></i></button></div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-7 text-secondary" id="panel_mail">
+
+                </div>
+                <div class="col-sm-2 "><button type="button" class="btn btn-light py-0" data-toggle="modal"
+                    data-target="#user_mail"><i class="fa fa-edit"></i></button></div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Teléfono</h6>
+                </div>
+                <div class="col-sm-7 text-secondary" id="panel_phone">
+
+                </div>
+                <div class="col-sm-2 "><button type="button" class="btn btn-light py-0" data-toggle="modal"
+                    data-target="#user_phone"><i class="fa fa-edit"></i></button></div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Celular</h6>
+                </div>
+                <div class="col-sm-7 text-secondary" id="panel_mobile">
+
+                </div>
+                <div class="col-sm-2 "><button type="button" class="btn btn-light py-0" data-toggle="modal"
+                    data-target="#user_mobile"><i class="fa fa-edit"></i></button></div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Dirección</h6>
+                </div>
+                <div class="col-sm-7 text-secondary" id="panel_localization">
+
+                </div>
+                <div class="col-sm-2 "><button type="button" class="btn btn-light py-0" data-toggle="modal"
+                    data-target="#user_localization"><i class="fa fa-edit"></i></button></div>
+              </div>
+              <div class="row py-2 ">
+                <div class="col py-2 justify-content-between text-center"><button class="btn btn-success"
+                    id="btn_save_profile">Guardar perfil</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Modal Nombres -->
+        <div class="modal fade" id="user_names" tabindex="-1" role="dialog" aria-labelledby="user_names"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Nombres y Apellidos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="">
+                  <label for="name_1">Primer nombre</label><input type="text" class="form-control" id="name_1"
+                    name="profile_names"required><div class="invalid-feedback">Debe completar</div>
+                  <label for="name_2">Segundo nombre</label><input type="text" class="form-control" id="name_2"
+                    name="profile_names">
+                  <label for="surname_1">Primer apellido</label><input type="text" class="form-control" id="surname_1"
+                    name="profile_names" required><div class="invalid-feedback">Debe completar</div>
+                  <label for="surname_2">Segundo apellido</label><input type="text" class="form-control" id="surname_2"
+                    name="profile_names" required><div class="invalid-feedback">Debe completar</div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn_names">Confirmar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Modal Edad -->
+        <div class="modal fade" id="user_edad" tabindex="-1" role="dialog" aria-labelledby="user_edad"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Fecha de nacimiento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="">
+                  <label for="nacimiento">Fecha de nacimiento</label><input type="date" class="form-control"
+                    id="nacimiento" name="profile_edad" required><div class="invalid-feedback">Debe completar</div>
+                  <label for="edad">Edad</label><input type="number" class="form-control" id="edad" name="profile_edad" required><div class="invalid-feedback">Debe completar</div>
+
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn_edad">Confirmar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Modal correo -->
+        <div class="modal fade" id="user_mail" tabindex="-1" role="dialog" aria-labelledby="user_mail"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Ingrese su e-mail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="">
+                  <label for="nacimiento">Email</label><input type="text" class="form-control" id="mail_2"
+                    name="profile_email" placeholder="ejemplo@ejemplo" required><div class="invalid-feedback">Debe completar</div>
+
+
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn_correo">Confirmar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Modal telefono -->
+        <div class="modal fade" id="user_phone" tabindex="-1" role="dialog" aria-labelledby="user_phone"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Ingrese su Teléfono</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="">
+                  <label for="phone">Teléfono</label><input type="text" class="form-control" id="phone"
+                    name="profile_phone" placeholder="25088565" required><div class="invalid-feedback">Debe completar</div>
+
+
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn_telefono">Confirmar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Modal celular -->
+        <div class="modal fade" id="user_mobile" tabindex="-1" role="dialog" aria-labelledby="user_mobile"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Ingrese su Celular</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="">
+                  <label for="mobile">Celular</label><input type="text" class="form-control" id="mobile"
+                    name="profile_mobile" placeholder="09xxxxxxx" required><div class="invalid-feedback">Debe completar</div>
+
+
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn_celular">Confirmar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Modal localizacion -->
+        <div class="modal fade" id="user_localization" tabindex="-1" role="dialog" aria-labelledby="user_localization"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Ingrese sus datos de localización</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="">
+                  <label for="direccion">Dirección</label><input type="text" class="form-control" id="direction"
+                    name="profile_localization" placeholder="Calle, puerta" required><div class="invalid-feedback">Debe completar</div>
+                  <label for="city">Ciudad</label><input type="text" class="form-control" id="city"
+                    name="profile_localization" placeholder="Ciudad" required><div class="invalid-feedback">Debe completar</div>
+                  <label for="country" class="col-sm-2 col-form-label">País</label>
+                  <select class="custom-select " data-live-search="true" name="profile_localization"
+                    id="country" required></select><div class="invalid-feedback">Seleccione un país</div>
+
+
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn_localization">Confirmar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal imagen perfil -->
+        <div class="modal fade" id="user_img" tabindex="-1" role="dialog" aria-labelledby="user_img" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Selecciona una imagen de perfil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="" action="">
+                  <label for="img_profile">Desde URL</label><input type="text" class="form-control" id="img_profile"
+                    name="" placeholder="">
+                  <label for="file-upload">Desde archivo</label><input class="form-control-file" id="file-upload"
+                    type="file" accept="image/*" />
+
+
+
+
+                </form>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn_img">Confirmar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <footer class="text-muted bg-light">
+          <div class="container">
+            <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
+            <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+          </div>
+        </footer>
+        <div class="alert fade alert-success" role="alert" id="alertResult">
+          <span id="resultSpan"></span>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id="spinner-wrapper">
+          <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/dropzone.js"></script>
+        <script src="js/init.js"></script>
+        <script src="js/cart.js"></script>
+        <script src="js/validation.js"></script>
+        <script src="js/my-profile.js"></script>
+        <script srC="js/login.js"></script>
+        <script src="js/login_google.js"></script>
+        <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+        <script>
+          showUserName();
+          showItemsCount();
+
+        </script>
 </body>
 
 </html>
